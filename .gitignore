@@ -127,3 +127,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 .DS_Store
+
+excel_input_folder
+excel_output_folder

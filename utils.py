@@ -33,7 +33,7 @@ def update_font(cell, index, size, sheet):
     patternType = cell.fill.patternType
     cell.fill = PatternFill(patternType=patternType, fgColor="FFFFFFFF")
 
-    if index in [0, 1, 2] and sheet == "Summary":
+    if index in [0, 1, 2]:
         cell.font = Font(name=name, charset=charset, family=family, b=True, i=i, strike=strike, outline=outline, shadow=shadow, condense=condense, size=size, color=color)
 
 def move_files_to_output_folder():
