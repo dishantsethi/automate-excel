@@ -8,4 +8,6 @@
 4. git clone
 // Ignore virtualenv for now
 5. pip install -r requirements.txt
+6. os.makedirs("excel_input_folder", 0o777)
+7. os.makedirs("excel_output_folder", 0o777)
 6. python main.py

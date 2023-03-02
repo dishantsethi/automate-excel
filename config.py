@@ -1,5 +1,5 @@
-INPUT_DIR = '/Users/dishantsethi/automate-excel/excel_input_files'
-OUTPUT_DIR = '/Users/dishantsethi/automate-excel/excel_ouput_files'
+INPUT_DIR = r'path'
+OUTPUT_DIR = r'path'
 SIZE = {
 "Summary": 10,
 "Loan Book Movement": 9,

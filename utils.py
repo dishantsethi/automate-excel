@@ -1,4 +1,4 @@
-from config import INPUT_DIR
+from config import INPUT_DIR, OUTPUT_DIR
 import os
 from openpyxl.styles import Font, PatternFill
 
@@ -35,3 +35,10 @@ def update_font(cell, index, size, sheet):
 
     if index in [0, 1, 2] and sheet == "Summary":
         cell.font = Font(name=name, charset=charset, family=family, b=True, i=i, strike=strike, outline=outline, shadow=shadow, condense=condense, size=size, color=color)
+
+def move_files_to_output_folder():
+    for file in os.listdir(INPUT_DIR):
+        if file.endswith(".xlsx"):
+            source = os.path.join(INPUT_DIR, file)
+            des = os.path.join(OUTPUT_DIR, file)
+            os.rename(source, des)
