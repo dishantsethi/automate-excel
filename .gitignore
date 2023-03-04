@@ -130,3 +130,4 @@ cython_debug/
 
 excel_input_folder
 excel_output_folder
+pdf_output_folder
