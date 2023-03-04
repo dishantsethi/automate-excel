@@ -1,3 +1,4 @@
+import os
 class Colors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -10,16 +11,21 @@ class Colors:
     RED = '\033[91m'
 
 def print_bold_warning(txt):
+    os.system('')
     print(Colors.BOLD + Colors.WARNING + txt + Colors.RESET)
 
 def print_bold_blue(txt):
+    os.system('')
     print(Colors.BOLD + Colors.OKBLUE + txt + Colors.RESET)
 
 def print_bold_red(txt):
+    os.system('')
     print(Colors.BOLD + Colors.RED + txt + Colors.RESET)
 
 def print_bold_header(txt):
+    os.system('')
     print(Colors.BOLD + Colors.HEADER + txt + Colors.RESET)
 
 def print_bold_green(txt):
+    os.system('')
     print(Colors.BOLD + Colors.OKGREEN + txt + Colors.RESET)

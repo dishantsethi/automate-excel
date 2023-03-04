@@ -1,6 +1,6 @@
-INPUT_DIR = r'/Users/dishantsethi/automate-excel/excel_input_folder'
-OUTPUT_DIR = r'/Users/dishantsethi/automate-excel/excel_output_folder'
-PDF_DIR = r'/Users/dishantsethi/automate-excel/pdf_output_folder'
+INPUT_DIR = r'C:\Users\Desktop\automate-excel\excel_input_folder'
+OUTPUT_DIR = r'C:\Users\Desktop\automate-excel\excel_output_folder'
+PDF_DIR = r'C:\Users\Desktop\automate-excel\pdf_output_folder'
 FONT_SIZE = {
 "Summary": 10,
 "Loan Book Movement": 9,

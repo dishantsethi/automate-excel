@@ -10,4 +10,5 @@
 5. pip install -r requirements.txt
 6. os.makedirs("excel_input_folder", 0o777)
 7. os.makedirs("excel_output_folder", 0o777)
-6. python main.py
+8. os.makedirs("pdf_output_folder", 0o777)
+9. python main.py
