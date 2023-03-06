@@ -1,12 +1,15 @@
-INPUT_DIR = r'C:\Users\Desktop\automate-excel\excel_input_folder'
-OUTPUT_DIR = r'C:\Users\Desktop\automate-excel\excel_output_folder'
-PDF_DIR = r'C:\Users\Desktop\automate-excel\pdf_output_folder'
+INPUT_DIR = r'/Users/dishantsethi/automate-excel/excel_input_folder'
+OUTPUT_DIR = r'/Users/dishantsethi/automate-excel/excel_output_folder'
+PDF_DIR = r'/Users/dishantsethi/automate-excel/pdf_output_folder'
+summary = "Summary"
+load_book_movement = "Load Book Movement"
+prepayments_and_reschedulement = "Prepayments & Reschedulement"
+collections_and_overdues = "Collections & Overdues"
 FONT_SIZE = {
-"Summary": 10,
-"Loan Book Movement": 9,
-"Prepayments": 9,
-"Reschedulement": 9,
-"Collections & Overdues": 9,
+summary: 10,
+load_book_movement: 9,
+prepayments_and_reschedulement: 9,
+collections_and_overdues: 9,
 "default": 9
 }
 TEXT_DATA_FOR_ROW_TWO = "Annexure to Auditor's Report - Statement for the month of"

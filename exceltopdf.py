@@ -1,4 +1,4 @@
-from config import PDF_DIR, OUTPUT_DIR
+from config import PDF_DIR, OUTPUT_DIR, summary, load_book_movement, prepayments_and_reschedulement, collections_and_overdues
 from utils import get_sheets_in_dir, get_visible_sheet_list
 from openpyxl import load_workbook
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
@@ -22,9 +22,9 @@ def generate_temp_excel_for_pdf():
         wb.save(f"{PDF_DIR}/tmp{file}")
 
 def update_temp_excel_and_convert_to_pdf():
-    print_bold_blue("------------------------------------------------------------")
-    tic = time.time()
     for file in get_sheets_in_dir(PDF_DIR):
+        print_bold_blue("------------------------------------------------------------")
+        tic = time.time()
         if file.endswith(".pdf"):
             continue
         filename = os.path.join(PDF_DIR, file)
@@ -32,17 +32,17 @@ def update_temp_excel_and_convert_to_pdf():
         sheet_list = get_visible_sheet_list(wb)
         for sheet in sheet_list:
             ws = wb[sheet]
-            if sheet == "Summary":
+            if sheet == summary:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=65)
-            elif sheet == "Loan Book Movement":
+            elif sheet == load_book_movement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=65)
                 update_border(ws)
-            elif sheet == "Prepayments & Reschedulement":
+            elif sheet == prepayments_and_reschedulement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=65)
-            elif sheet == "Collections & Overdues":
+            elif sheet == collections_and_overdues:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=60)
                 update_border(ws)

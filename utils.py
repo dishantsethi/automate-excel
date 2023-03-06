@@ -1,4 +1,4 @@
-from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL
+from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL, summary, load_book_movement, collections_and_overdues
 import os
 from openpyxl.styles import Font, PatternFill
 from colors import *
@@ -18,9 +18,19 @@ def get_visible_sheet_list(wb):
             sheet_list.append(sheet)
     return sheet_list
 
+def get_sheet_row_count(ws):
+    if ws.title in [load_book_movement, collections_and_overdues]:
+        col = "D" if ws.title == collections_and_overdues else "B"
+        for cell in ws[col]:
+            if cell.value is not None and isinstance(cell.value, str) and cell.value.lower() == "total":
+                if cell.row + 10 < ws.max_row:
+                    return cell.row
+    return ws.max_row
+
 def update_font(ws, size):
+    max_row = get_sheet_row_count(ws)
     try:
-        for rows in ws.iter_cols():
+        for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=ws.max_column):
             for index, cell in enumerate(rows):
                 name = cell.font.name
                 charset = cell.font.charset
@@ -56,7 +66,7 @@ def move_files_to_output_folder(files):
         os.rename(source, des)
         
 def get_year_and_month_for_a2(wb):
-    a2_data = wb["Summary"][MONTH_YEAR_CELL].value
+    a2_data = wb[summary][MONTH_YEAR_CELL].value
     if a2_data:
         data = "{:%B %Y}".format(a2_data)
         print_bold_header(f"Year and Month: {data}")
