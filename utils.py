@@ -20,7 +20,7 @@ def get_visible_sheet_list(wb):
 
 def get_sheet_row_count(ws):
     if ws.title in [load_book_movement, collections_and_overdues]:
-        col = "D" if ws.title == collections_and_overdues else "B"
+        col = "B" if ws.title == collections_and_overdues else "D"
         for cell in ws[col]:
             if cell.value is not None and isinstance(cell.value, str) and cell.value.lower() == "total":
                 if cell.row + 10 < ws.max_row:

@@ -1,5 +1,5 @@
 from config import PDF_DIR, OUTPUT_DIR, summary, load_book_movement, prepayments_and_reschedulement, collections_and_overdues
-from utils import get_sheets_in_dir, get_visible_sheet_list
+from utils import get_sheets_in_dir, get_visible_sheet_list, get_sheet_row_count
 from openpyxl import load_workbook
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 import os
@@ -8,6 +8,7 @@ from colors import print_bold_header, print_bold_blue, print_bold_warning, print
 import win32com.client
 from pywintypes import com_error
 import time
+import shutil
 
 def convert_to_pdf():
 
@@ -17,9 +18,9 @@ def convert_to_pdf():
 
 def generate_temp_excel_for_pdf():
     for file in get_sheets_in_dir(OUTPUT_DIR):
-        filename = os.path.join(OUTPUT_DIR, file)
-        wb = load_workbook(filename=filename)
-        wb.save(f"{PDF_DIR}/tmp{file}")
+        source = os.path.join(OUTPUT_DIR, file)
+        des = os.path.join(PDF_DIR, f"tmp{file}")
+        shutil.copy(source, des)
 
 def update_temp_excel_and_convert_to_pdf():
     for file in get_sheets_in_dir(PDF_DIR):
@@ -59,7 +60,8 @@ def update_temp_excel_and_convert_to_pdf():
 
 
 def update_border(ws):
-    for rows in ws.iter_rows():
+    max_row = get_sheet_row_count(ws)
+    for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=ws.max_column):
         for cell in rows:
             cell.border = Border(left=None, right=None, bottom=None, top=None, outline=None)
         
