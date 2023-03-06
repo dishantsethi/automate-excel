@@ -12,20 +12,20 @@ class Colors:
 
 def print_bold_warning(txt):
     os.system('')
-    print(Colors.BOLD + Colors.WARNING + txt + Colors.RESET)
+    print(Colors.BOLD + Colors.WARNING + str(txt) + Colors.RESET)
 
 def print_bold_blue(txt):
     os.system('')
-    print(Colors.BOLD + Colors.OKBLUE + txt + Colors.RESET)
+    print(Colors.BOLD + Colors.OKBLUE + str(txt) + Colors.RESET)
 
 def print_bold_red(txt):
     os.system('')
-    print(Colors.BOLD + Colors.RED + txt + Colors.RESET)
+    print(Colors.BOLD + Colors.RED + str(txt) + Colors.RESET)
 
 def print_bold_header(txt):
     os.system('')
-    print(Colors.BOLD + Colors.HEADER + txt + Colors.RESET)
+    print(Colors.BOLD + Colors.HEADER + str(txt) + Colors.RESET)
 
 def print_bold_green(txt):
     os.system('')
-    print(Colors.BOLD + Colors.OKGREEN + txt + Colors.RESET)
+    print(Colors.BOLD + Colors.OKGREEN + str(txt) + Colors.RESET)

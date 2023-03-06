@@ -1,4 +1,4 @@
-from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL, summary, load_book_movement, collections_and_overdues
+from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL, summary, loan_book_movement, collections_and_overdues
 import os
 from openpyxl.styles import Font, PatternFill
 from colors import *
@@ -19,7 +19,7 @@ def get_visible_sheet_list(wb):
     return sheet_list
 
 def get_sheet_row_count(ws):
-    if ws.title in [load_book_movement, collections_and_overdues]:
+    if ws.title in [loan_book_movement, collections_and_overdues]:
         col = "B" if ws.title == collections_and_overdues else "D"
         for cell in ws[col]:
             if cell.value is not None and isinstance(cell.value, str) and cell.value.lower() == "total":
