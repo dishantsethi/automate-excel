@@ -1,4 +1,4 @@
-from config import PDF_DIR, OUTPUT_DIR, summary, loan_book_movement, prepayments_and_reschedulement, collections_and_overdues
+from config import PDF_DIR, OUTPUT_DIR, summary, loan_book_movement, prepayments_and_reschedulement, collections_and_overdues, PAGE_SCALE
 from utils import get_sheets_in_dir, get_visible_sheet_list, get_sheet_row_count
 from openpyxl import load_workbook
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
@@ -35,21 +35,25 @@ def update_temp_excel_and_convert_to_pdf():
             ws = wb[sheet]
             if sheet == summary:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=65)
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
             elif sheet == loan_book_movement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=65)
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
+                ws.print_title_cols = 'A:D'
+                ws.print_title_rows = '1:6'
                 update_border(ws)
             elif sheet == prepayments_and_reschedulement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=65)
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
             elif sheet == collections_and_overdues:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=60)
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
+                ws.print_title_cols = 'A:B'
+                ws.print_title_rows = '1:5'
                 update_border(ws)
             else:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=65)
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE["default"])
         wb.save(filename)
         print_bold_header(f"Page Setup Done for file {file}")
         print_bold_header(f"Borders removed for file {file}")
