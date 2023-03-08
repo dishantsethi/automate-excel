@@ -33,21 +33,21 @@ def update_temp_excel_and_convert_to_pdf():
         sheet_list = get_visible_sheet_list(wb)
         for sheet in sheet_list:
             ws = wb[sheet]
-            if sheet == summary:
+            if sheet == summary or sheet.startswith(summary):
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
-            elif sheet == loan_book_movement:
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[summary])
+            elif sheet == loan_book_movement or sheet.startswith("Loan"):
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[loan_book_movement])
                 ws.print_title_cols = 'A:D'
                 ws.print_title_rows = '1:6'
                 update_border(ws)
             elif sheet == prepayments_and_reschedulement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[prepayments_and_reschedulement])
             elif sheet == collections_and_overdues:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
-                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[sheet])
+                ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[collections_and_overdues])
                 ws.print_title_cols = 'A:B'
                 ws.print_title_rows = '1:5'
                 update_border(ws)

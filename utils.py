@@ -52,7 +52,7 @@ def update_font(ws, size):
     except Exception as e:
         print_bold_red(f"Unable to update font: {e}")
 
-def update_summary_row(ws, a2, bankname):
+def insert_row_a2(ws, a2, bankname):
     try:
         ws.insert_rows(2)
         ws["A2"].value = f"{TEXT_DATA_FOR_ROW_TWO} {a2} {bankname}"
@@ -66,12 +66,16 @@ def move_files_to_output_folder(files):
         os.rename(source, des)
         
 def get_year_and_month_for_a2(wb):
-    a2_data = wb[summary][MONTH_YEAR_CELL].value
+    sheet = wb.sheetnames[0]     
+    if summary in wb.sheetnames:
+       sheet = summary
+        
+    a2_data = wb[sheet][MONTH_YEAR_CELL].value
     if a2_data:
         data = "{:%B %Y}".format(a2_data)
         print_bold_header(f"Year and Month: {data}")
         return data    
-    print_bold_red(f"Year and Month Missing in cell {MONTH_YEAR_CELL}")
+    print_bold_red(f"Year and Month Missing in cell {MONTH_YEAR_CELL} of sheet {sheet}")
     return a2_data
 
 def get_bankname(file):
