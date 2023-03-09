@@ -57,7 +57,7 @@ def update_temp_excel_and_convert_to_pdf():
         wb.save(filename)
         print_bold_header(f"Page Setup Done for file {file}")
         print_bold_header(f"Borders removed for file {file}")
-        excel_to_pdf(file)
+        excel_to_pdf(file, len(sheet_list))
         toc = time.time()
         print_bold_green(f"Time Take: {toc-tic} seconds")
         print_bold_blue("------------------------------------------------------------")
@@ -69,7 +69,7 @@ def update_border(ws):
         for cell in rows:
             cell.border = Border(left=None, right=None, bottom=None, top=None, outline=None)
         
-def excel_to_pdf(excel_file):
+def excel_to_pdf(excel_file, sheet_count):
     excel = win32com.client.Dispatch("Excel.Application")
     excel.interactive = False
     excel.visible = False
@@ -78,7 +78,7 @@ def excel_to_pdf(excel_file):
     excel_file_path = os.path.join(PDF_DIR, excel_file)
     try:
         wb = excel.Workbooks.Open(excel_file_path)
-        ws_index_list = [1,2,3,4]
+        ws_index_list = [x for x in range(1, sheet_count+1)]
         wb.WorkSheets(ws_index_list).Select()
         wb.ActiveSheet.ExportAsFixedFormat(0, pdf_file_path)
     except com_error as e:
