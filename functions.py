@@ -15,7 +15,7 @@ def page_setup_for_each_sheet(wb, wb_name, a2, bankname):
             size = FONT_SIZE["default"]
  
         print(f"Inserting row 2 in sheet {sheet}")
-        insert_row_a2(ws, a2, bankname)
+        insert_row_a2(ws, a2, bankname, sheet)
         
         print(f"Updating font of sheet {sheet}")        
         update_font(ws, size)

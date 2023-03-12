@@ -2,6 +2,7 @@ from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL
 import os
 from openpyxl.styles import Font, PatternFill
 from colors import *
+from openpyxl.utils import get_column_letter
 
 def listdir_nohidden(path):
     for f in os.listdir(path):
@@ -52,10 +53,16 @@ def update_font(ws, size):
     except Exception as e:
         print_bold_red(f"Unable to update font: {e}")
 
-def insert_row_a2(ws, a2, bankname):
+def insert_row_a2(ws, a2, bankname, sheet):
     try:
-        ws.insert_rows(2)
+        col = get_column_letter(ws.max_column)
+        ws.move_range(f"A2:{col}{ws.max_row}", rows=1, translate=True)
+        # ws.insert_rows(2)
         ws["A2"].value = f"{TEXT_DATA_FOR_ROW_TWO} {a2} {bankname}"
+        if sheet == loan_book_movement:
+            ws.delete_rows(4) 
+        if sheet == collections_and_overdues:
+            ws.delete_rows(3)
     except Exception as e:
         print_bold_red(f"Unable to insert row: {e}")
 
