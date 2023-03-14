@@ -1,5 +1,5 @@
 from config import PDF_DIR, OUTPUT_DIR, summary, loan_book_movement, prepayments_and_reschedulement, collections_and_overdues, PAGE_SCALE
-from utils import get_sheets_in_dir, get_visible_sheet_list, get_sheet_row_count
+from utils import get_sheets_in_dir, get_visible_sheet_list, get_sheet_row_count, get_sheet_column
 from openpyxl import load_workbook
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 import os
@@ -65,7 +65,8 @@ def update_temp_excel_and_convert_to_pdf():
 
 def update_border(ws):
     max_row = get_sheet_row_count(ws)
-    for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=ws.max_column):
+    max_col = get_sheet_column(ws)
+    for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=max_col):
         for cell in rows:
             cell.border = Border(left=None, right=None, bottom=None, top=None, outline=None)
         
