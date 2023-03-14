@@ -1,4 +1,4 @@
-from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL, summary, loan_book_movement, collections_and_overdues
+from config import INPUT_DIR, OUTPUT_DIR, TEXT_DATA_FOR_ROW_TWO, MONTH_YEAR_CELL, summary, loan_book_movement, collections_and_overdues, prepayments_and_reschedulement
 import os
 from openpyxl.styles import Font, PatternFill
 from colors import *
@@ -23,15 +23,24 @@ def get_sheet_row_count(ws):
     if ws.title in [loan_book_movement, collections_and_overdues]:
         col = "B" if ws.title == collections_and_overdues else "D"
         for cell in ws[col]:
-            if cell.value is not None and isinstance(cell.value, str) and cell.value.lower() == "total":
+            if cell.value is not None and isinstance(cell.value, str) and cell.value.lower().startswith("total"):
                 if cell.row + 10 < ws.max_row:
                     return cell.row
     return ws.max_row
 
-def update_font(ws, size):
-    max_row = get_sheet_row_count(ws)
+def get_sheet_column(ws):
+    if ws.title in [loan_book_movement, collections_and_overdues]:
+        row = 4 if ws.title == collections_and_overdues else 5
+        for cell in ws[row]:
+            if cell.value is None:
+                if cell.column + 10 < ws.max_column:
+                    if ws[row][cell.column + 1].value is None and ws[row][cell.column + 2].value is None:
+                        return cell.column
+    return ws.max_column
+
+def update_font(ws, size, max_row, max_col):
     try:
-        for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=ws.max_column):
+        for rows in ws.iter_rows(min_row=1, min_col=1, max_row=max_row ,max_col=max_col):
             for index, cell in enumerate(rows):
                 name = cell.font.name
                 charset = cell.font.charset
@@ -53,13 +62,12 @@ def update_font(ws, size):
     except Exception as e:
         print_bold_red(f"Unable to update font: {e}")
 
-def insert_row_a2(ws, a2, bankname, sheet):
+def insert_row_a2(ws, a2, bankname, sheet, max_col):
     try:
-        col = get_column_letter(ws.max_column)
+        col = get_column_letter(max_col)
         ws.move_range(f"A2:{col}{ws.max_row}", rows=1, translate=True)
-        # ws.insert_rows(2)
         ws["A2"].value = f"{TEXT_DATA_FOR_ROW_TWO} {a2} {bankname}"
-        if sheet == loan_book_movement:
+        if sheet.startswith("Loan") or sheet == prepayments_and_reschedulement:
             ws.delete_rows(4) 
         if sheet == collections_and_overdues:
             ws.delete_rows(3)
