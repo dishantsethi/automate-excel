@@ -36,6 +36,7 @@ def update_temp_excel_and_convert_to_pdf():
             if sheet == summary or sheet.startswith(summary):
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[summary])
+                ws.print_area = ws.print_area[:len(ws.print_area)-1] + str(int(ws.print_area[-1]) + 1)
             elif sheet == loan_book_movement or sheet.startswith("Loan"):
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[loan_book_movement])
