@@ -40,7 +40,7 @@ def update_temp_excel_and_convert_to_pdf():
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[loan_book_movement])
                 ws.print_title_cols = 'A:D'
-                ws.print_title_rows = '1:6'
+                ws.print_title_rows = '1:5'
                 update_border(ws)
             elif sheet == prepayments_and_reschedulement:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
@@ -49,7 +49,7 @@ def update_temp_excel_and_convert_to_pdf():
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_LANDSCAPE, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[collections_and_overdues])
                 ws.print_title_cols = 'A:B'
-                ws.print_title_rows = '1:5'
+                ws.print_title_rows = '1:4'
                 update_border(ws)
             else:
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)

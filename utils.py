@@ -20,7 +20,7 @@ def get_visible_sheet_list(wb):
     return sheet_list
 
 def get_sheet_row_count(ws):
-    if ws.title in [loan_book_movement, collections_and_overdues]:
+    if ws.title in [loan_book_movement, collections_and_overdues] or ws.title.startswith("Loan"):
         col = "B" if ws.title == collections_and_overdues else "D"
         for cell in ws[col]:
             if cell.value is not None and isinstance(cell.value, str) and cell.value.lower().startswith("total"):
@@ -29,7 +29,7 @@ def get_sheet_row_count(ws):
     return ws.max_row
 
 def get_sheet_column(ws):
-    if ws.title in [loan_book_movement, collections_and_overdues]:
+    if ws.title in [loan_book_movement, collections_and_overdues] or ws.title.startswith("Loan"):
         row = 4 if ws.title == collections_and_overdues else 5
         for cell in ws[row]:
             if cell.value is None:
