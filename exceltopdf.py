@@ -33,6 +33,8 @@ def update_temp_excel_and_convert_to_pdf():
         sheet_list = get_visible_sheet_list(wb)
         for sheet in sheet_list:
             ws = wb[sheet]
+            ws.oddFooter.center.text = 'Page &P of &N' 
+            ws.evenFooter.center.text = 'Page &P of &N'
             if sheet == summary or sheet.startswith(summary):
                 ws.page_margins = PageMargins(left=0.50, right=0.50, top=0.50, bottom=1.50, header=0.3, footer=0.3)
                 ws.page_setup = PrintPageSetup(orientation=ws.ORIENTATION_PORTRAIT, paperSize=ws.PAPERSIZE_A4, scale=PAGE_SCALE[summary])
